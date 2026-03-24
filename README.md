@@ -24,6 +24,9 @@ O Sistema Runner tem como objetivo facilitar a execução de aplicações Java p
 
 ## Plano de Trabalho – Sistema Runner
 
+## Fase 0 – Preparação e Estruturação do Projeto
+Objetivo: Organizar o ambiente de desenvolvimento e estrutura base do sistema.
+
 ## Fase 1 – Desenvolvimento do Assinador.jar
 Objetivo: Criar a aplicação Java responsável pela simulação de assinaturas digitais e validação de parâmetros.
 
