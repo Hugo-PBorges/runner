@@ -3,18 +3,10 @@ Projeto para a disciplina de Implementação e Integração de Software
 
 ---
 
-## Integrante
-- Curso: Engenharia de Software
-- Nome: Hugo Pereira Borges
-- Matrícula: 202403075
-
----
-
-## Documentação
-
-- [Documento de Arquitetura Conceitual](docs/Arquitetura_Conceitual.pdf)
-
-Este documento representa a versão inicial da arquitetura conceitual do sistema, apresentando uma visão geral e ainda superficial dos principais mecanismos, responsabilidades e interações entre os componentes.
+## Integrantes
+| Curso                   | Nome                 | Matrícula    |
+|-------------------------|--------------------|-------------|
+| Engenharia de Software  | Hugo Pereira Borges | 202403075   |
 
 ---
 
@@ -24,24 +16,51 @@ O Sistema Runner tem como objetivo facilitar a execução de aplicações Java p
 
 ---
 
-## 2. Arquitetura Conceitual
+## 2. Entreáveis
+- assinador.jar
+- CLI para o assinador
+- CLI para o simulador (hubsaude)
+---
 
-O sistema é estruturado em três camadas, com responsabilidades superficialmente definidas:
+## Plano de Trabalho – Sistema Runner
 
-### Camada de Entrada — CLI
-- Recebe comandos do usuário
-- Realiza validação sintática dos parâmetros
-- Encaminha requisições para a camada de aplicação
+## Fase 1 – Desenvolvimento do Assinador.jar
+Objetivo: Criar a aplicação Java responsável pela simulação de assinaturas digitais e validação de parâmetros.
 
-### Camada de Aplicação
-- Orquestra a execução do sistema
-- Executa o `assinador.jar`
-- Gerencia o ciclo de vida do `simulador.jar` (start, stop, status)
-- Verifica pré-condições (porta, arquivos, ambiente)
+- Criação do projeto Java (esqueleto, pom.xml, estrutura de pacotes).  
+- Implementação da interface `SignatureService` com simulação de métodos `sign` e `validate`.  
+- Validação rigorosa de parâmetros de entrada.  
+- Implementação do modo servidor via HTTP (`/sign` e `/validate`).  
+- Preparação para integração com CLIs e suporte a dispositivos criptográficos simulados (PKCS#11).  
 
-### Camada de Infraestrutura
-- Executa processos (`java -jar`)
-- Gerencia arquivos e portas
-- Realiza download de dependências externas
+---
+
+## Fase 2 – Desenvolvimento do CLI do Assinador
+Objetivo: Criar o CLI que gerencia o `assinador.jar` local e via servidor, de forma multiplataforma.
+
+- Implementação do CLI em Go (cross-compiling para Windows, Linux e macOS).  
+- Detecção de portas livres e reutilização de instâncias em execução.  
+- Invocação do `assinador.jar` no modo local ou via HTTP.  
+- Registro de runtime, porta e PID no banco de dados local.  
+
+---
+
+## Fase 3 – Desenvolvimento do CLI do Simulador
+Objetivo: Criar o CLI que gerencia o simulador HubSaúde (`simulador.jar`) de forma multiplataforma.
+
+- Gerenciamento do download e versão do simulador.jar.  
+- Controle do ciclo de vida (start, stop, status).  
+- Verificação de portas disponíveis antes da inicialização.  
+- Integração com banco de dados local para registrar estado e PID.  
+
+---
+
+## Fase 4 – Integração
+Objetivo: Garantir comunicação confiável entre os CLIs e as aplicações Java.
+
+- Integração do CLI do assinador com o `assinador.jar` (modo local e HTTP).  
+- Integração do CLI do simulador com o `simulador.jar`.  
+- Fluxos de execução para criação e validação de assinaturas simuladas.  
+- Tratamento de erros e mensagens de feedback unificadas.  
 
 ---
