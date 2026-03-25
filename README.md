@@ -1,33 +1,23 @@
-# Runner
-Projeto para a disciplina de Implementação e Integração de Software
+# Integrante
 
----
-
-## Integrantes
 | Curso                   | Nome                 | Matrícula    |
 |-------------------------|--------------------|-------------|
 | Engenharia de Software  | Hugo Pereira Borges | 202403075   |
 
 ---
+# Plano de Ação – Sistema Runner
 
-## 1. Visão Geral
+### Fase 0 – Preparação e Estruturação do Projeto
+Objetivo: Definir os requisitos do sistema e estabelecer o ambiente e a organização inicial do projeto.
 
-O Sistema Runner tem como objetivo facilitar a execução de aplicações Java por meio de linha de comando, abstraindo do usuário detalhes relacionados à configuração de ambiente e à execução manual de arquivos `.jar`.
+- Consolidação dos requisitos do sistema.  
+- Definição das interfaces entre os módulos (contratos de integração).  
+- Identificação de entradas, saídas e formatos de dados (CLI, JSON, HTTP).  
+- Definição de padrões de projeto e organização de código.  
+- Definição da estrutura de diretórios e repositórios.  
+- Configuração inicial do ambiente de desenvolvimento.  
 
----
-
-## 2. Entreáveis
-- assinador.jar
-- CLI para o assinador
-- CLI para o simulador (hubsaude)
----
-
-## Plano de Trabalho – Sistema Runner
-
-## Fase 0 – Preparação e Estruturação do Projeto
-Objetivo: Organizar o ambiente de desenvolvimento e estrutura base do sistema.
-
-## Fase 1 – Desenvolvimento do Assinador.jar
+### Fase 1 – Desenvolvimento do Assinador.jar
 Objetivo: Criar a aplicação Java responsável pela simulação de assinaturas digitais e validação de parâmetros.
 
 - Criação do projeto Java (esqueleto, pom.xml, estrutura de pacotes).  
@@ -38,7 +28,7 @@ Objetivo: Criar a aplicação Java responsável pela simulação de assinaturas 
 
 ---
 
-## Fase 2 – Desenvolvimento do CLI do Assinador
+### Fase 2 – Desenvolvimento do CLI do Assinador
 Objetivo: Criar o CLI que gerencia o `assinador.jar` local e via servidor, de forma multiplataforma.
 
 - Implementação do CLI em Go (cross-compiling para Windows, Linux e macOS).  
@@ -48,7 +38,7 @@ Objetivo: Criar o CLI que gerencia o `assinador.jar` local e via servidor, de fo
 
 ---
 
-## Fase 3 – Desenvolvimento do CLI do Simulador
+### Fase 3 – Desenvolvimento do CLI do Simulador
 Objetivo: Criar o CLI que gerencia o simulador HubSaúde (`simulador.jar`) de forma multiplataforma.
 
 - Gerenciamento do download e versão do simulador.jar.  
@@ -58,7 +48,7 @@ Objetivo: Criar o CLI que gerencia o simulador HubSaúde (`simulador.jar`) de fo
 
 ---
 
-## Fase 4 – Integração
+### Fase 4 – Integração
 Objetivo: Garantir comunicação confiável entre os CLIs e as aplicações Java.
 
 - Integração do CLI do assinador com o `assinador.jar` (modo local e HTTP).  
