@@ -15,7 +15,7 @@ O sistema é composto por:
 
 ### Objetivo
 
-Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e HTTP, além de iniciar o CLI em Go para validação do fluxo ponta a ponta.
+Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e inicialização HTTP, além de iniciar o CLI em Go.
 
 ---
 
@@ -27,24 +27,22 @@ Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e H
 - Definição dos parâmetros de entrada e saída (base FHIR, simulação)
 - Implementação de `SignatureService` com `FakeSignatureService`
 - Suporte aos modos:
-  - CLI (execução local)
-  - HTTP (`POST /sign`, `POST /validate`)
+  - CLI (execução local), com os métodos version, sign e validate
+  - HTTP (`POST /signature/sign`, `POST /signature/validate`) apenas iniciado via CLI
 - Validação inicial de parâmetros
 - Padronização básica de saída (CLI e JSON)
-- Testes unitários iniciais
 
 #### CLI do Assinador (Go)
 
 - Estrutura inicial do projeto
-- Comandos básicos para invocação do `assinador.jar`
-- Execução simples ponta a ponta
+- Comandos básicos para invocação do `assinador.jar` sign e validate
 - Sem infraestrutura avançada (JDK, processos, persistência)
 
 ---
 
 ### Resultado Esperado
 
-- Execução básica de `sign` e `validate`
+- Execução básica de `sign` e `validate` para JSON com parametros
 - Comunicação inicial entre CLI e `assinador.jar`
 - Fluxo ponta a ponta funcional em nível inicial
 
@@ -54,7 +52,8 @@ Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e H
 
 ### Objetivo
 
-Evoluir o sistema para um nível robusto, garantindo validação rigorosa, simulação fiel ao escopo e aderência às histórias de usuário.
+Fazer a primeira realise do Assinador Simulator v1.0.0
+Criar testes unitários e testes de integração
 
 ---
 
@@ -62,39 +61,19 @@ Evoluir o sistema para um nível robusto, garantindo validação rigorosa, simul
 
 #### Assinador (`assinador.jar`)
 
-- Validação completa e rigorosa dos parâmetros de entrada
-- Padronização de respostas de sucesso e erro
-- Simulação de assinatura e validação com alta fidelidade (sem criptografia real)
+- Verificar a viabilidade de testar o metodo de assinatura via SunPKCS11 provider
 - Consistência entre execução CLI e HTTP
-- Tratamento estruturado de erros e exceções
-- Controle básico de execução (porta e processo)
 
 #### CLI do Assinador (Go)
 
-- Evolução dos comandos `sign` e `validate`
-- Suporte aos modos:
-  - Local (CLI)
-  - Servidor HTTP (padrão)
-- Inicialização automática do assinador em modo servidor
-- Detecção e reutilização de instâncias em execução
-- Implementação de comando de parada (`stop`)
-- Melhoria na exibição de resultados e erros
-
-#### Integração
-
-- Consolidação dos fluxos:
-  - Criação de assinatura
-  - Validação de assinatura
-- Padronização do comportamento entre modos de execução
-- Tratamento de erros ponta a ponta
-- Testes mais amplos e rigorosos do sistema
+- Suporte ao modo:
+  - Servidor HTTP (padrão), para realizar requisições
 
 ---
 
 ### Resultado Esperado
 
-- Sistema validando corretamente todas as entradas
-- CLI operando de forma consistente nos dois modos
+- CLI operando de forma consistente nos dois modos Cold e HTTP
 - Simulação confiável e aderente ao escopo
 - Fluxo ponta a ponta estável
 
