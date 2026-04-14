@@ -41,12 +41,10 @@ Para instruções completas, exemplos avançados e detalhes adicionais, consulte
 ---
 
 
-# A ser feito pós aula do dia 07/04
-- Atualizar o documento de plnajamento
-- Definir as tasks prioritarias para entregar valor até o fim da sprint 1
-  ## Duvidas Retiradas
-  - Não vai entrar o parametro 8 - Configurações operacionais definido na criação da assinatura definido no padrão FHIR
-  - O CLI em modo HTTPS vai poder fazer requisições para o modo servidor de forma direta e não simplesmente disponibilizar o localhost/8080
+# A ser feito pós aula do dia 14/04
+- Fazer testes unitários e de integração para o assinador.jar
+- Testar o metodo de assinatura via SunPKCS11 provider
+- Servidor HTTP (padrão), para o assinador-cli realizar requisições para a API exposta pelo assinador.jar
 
 # Plano de Ação – Sistema Runner
 
