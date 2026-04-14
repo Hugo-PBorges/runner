@@ -1,0 +1,18 @@
+{
+  "bundle": {
+    "entries": ["a", "b"]
+  },
+  "provenance": {
+    "target": ["a", "b"]
+  },
+  "crypto": {
+    "pin": "1234",
+    "identifier": "key1",
+    "slotId": 1,
+    "tokenLabel": "SafeNet"
+  },
+  "certificates": ["cert1"],
+  "timestamp": 1751328001,
+  "strategy": "iat",
+  "policy": "https://fhir.saude.go.gov.br|0.0.2"
+}
