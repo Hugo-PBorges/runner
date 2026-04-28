@@ -1,4 +1,4 @@
-# Assinador Simulator - v1.0.0
+# Assinador Simulator - v0.1.0
 
 ## Visão Geral
 
