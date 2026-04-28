@@ -6,13 +6,13 @@ import java.util.List;
 
 public class BundleDTO {
     @NotEmpty(message = "Bundle deve possuir entries")
-    private List<Object> entries;
+    private List<String> entries;
 
-    public List<Object> getEntries() {
+    public List<String> getEntries() {
         return entries;
     }
 
-    public void setEntries(List<Object> entries) {
+    public void setEntries(List<String> entries) {
         this.entries = entries;
     }
 }
