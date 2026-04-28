@@ -40,6 +40,10 @@ Para instruções completas, exemplos avançados e detalhes adicionais, consulte
 
 ---
 
+# A ser feito pós aula do dia 28/04
+- Atualizar o Readme com as tasks que foram feitas 
+- Finalizar os ajustes e disponibilizar o modo HTTP para a main
+- Pesqusar sobre o sunpkcs#11
 
 # A ser feito pós aula do dia 14/04
 - Fazer testes unitários e de integração para o assinador.jar
