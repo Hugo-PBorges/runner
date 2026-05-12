@@ -17,8 +17,6 @@ O sistema é composto por:
 
 Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e inicialização HTTP, além de iniciar o CLI em Go.
 
----
-
 ### Escopo
 
 #### Assinador (`assinador.jar`)
@@ -27,7 +25,7 @@ Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e i
 - Definição dos parâmetros de entrada e saída (base FHIR, simulação)
 - Implementação de `SignatureService` com `FakeSignatureService`
 - Suporte aos modos:
-  - CLI (execução local), com os métodos version, sign e validate
+  - CLI (execução local), com os métodos `version`, `sign` e `validate`
   - HTTP (`POST /signature/sign`, `POST /signature/validate`) apenas iniciado via CLI
 - Validação inicial de parâmetros
 - Padronização básica de saída (CLI e JSON)
@@ -35,14 +33,12 @@ Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e i
 #### CLI do Assinador (Go)
 
 - Estrutura inicial do projeto
-- Comandos básicos para invocação do `assinador.jar` sign e validate
+- Comandos básicos para invocação do `assinador.jar` (`sign` e `validate`)
 - Sem infraestrutura avançada (JDK, processos, persistência)
-
----
 
 ### Resultado Esperado
 
-- Execução básica de `sign` e `validate` para JSON com parametros
+- Execução básica de `sign` e `validate` para JSON com parâmetros
 - Comunicação inicial entre CLI e `assinador.jar`
 - Fluxo ponta a ponta funcional em nível inicial
 
@@ -52,40 +48,34 @@ Estabelecer a base funcional do `assinador.jar`, com suporte aos modos local e i
 
 ### Objetivo
 
-Fazer a primeira realise do Assinador Simulator v1.0.0
-Criar testes unitários e testes de integração
-
----
+- Fazer a primeira release do Assinador Simulator v0.1.0
+- Fornecer os arquivos executáveis do assinador
+- Criar forma de acessar o assinador no modo servidor
+- Criar testes unitários
 
 ### Escopo
 
 #### Assinador (`assinador.jar`)
 
-- Verificar a viabilidade de testar o metodo de assinatura via SunPKCS11 provider
 - Consistência entre execução CLI e HTTP
 
 #### CLI do Assinador (Go)
 
-- Suporte ao modo:
-  - Servidor HTTP (padrão), para realizar requisições
-
----
+- Suporte ao modo servidor HTTP (padrão), para realizar requisições via CLI
 
 ### Resultado Esperado
 
-- CLI operando de forma consistente nos dois modos Cold e HTTP
+- CLI operando de forma consistente nos dois modos (cold e HTTP)
 - Simulação confiável e aderente ao escopo
 - Fluxo ponta a ponta estável
 
 ---
 
-## Sprint 3 — CLI, Simulador e Infraestrutura
+## Sprint 3 — CLI do Simulador
 
 ### Objetivo
 
-Consolidar o CLI do assinador, introduzir o CLI do simulador e estruturar a infraestrutura necessária para execução autônoma e distribuição.
-
----
+Consolidar o CLI do assinador e introduzir a primeira versão do CLI do Simulador do HubSaúde, garantindo gerenciamento básico do ciclo de vida e download automático de dependências.
 
 ### Escopo
 
@@ -93,58 +83,23 @@ Consolidar o CLI do assinador, introduzir o CLI do simulador e estruturar a infr
 
 - Consolidação dos comandos:
   - `sign`, `validate`, `server`, `stop`
-- Definição do modo padrão (servidor)
+- Definição do modo padrão (servidor) no projeto do `assinador.cli`
 - Melhoria de usabilidade (help, organização)
+- Estudo e utilização do **SunPKCS11 provider** no projeto do `assinador.cli`
 
-#### CLI do Simulador (Go)
+#### CLI do Simulador (Go) — Primeira Versão
 
-- Implementação dos comandos:
-  - `start`, `stop`, `status`
-- Gerenciamento do ciclo de vida do `simulador.jar`
-- Controle de processos, portas e estado local
-- Download automático do simulador e controle de versão
-
-#### Infraestrutura
-
-- Gerenciamento de processos (`assinador.jar` e `simulador.jar`)
-- Comunicação HTTP padronizada
-- Manipulação de arquivos locais
-- Detecção e controle de portas
-
-#### Persistência local
-
-- Estrutura `~/.hubsaude/`
-- Armazenamento de:
-  - PID
-  - Porta
-  - Runtime
-  - Estado das aplicações
-
-#### Provisionamento de dependências
-
-- Detecção de JDK instalado
-- Download automático do JDK quando necessário
-- Configuração local para uso transparente pelos CLIs
-
-#### CI/CD (GitHub)
-
-- Configuração de pipelines de build e testes
-- Execução automática a cada alteração no repositório
-- Geração de binários multiplataforma:
-  - Windows
-  - Linux
-  - macOS
-- Publicação automática no GitHub Releases
-- Versionamento e geração de checksums
-
----
+- Implementação inicial dos comandos:
+  - `start` — iniciar o simulador
+  - `stop` — parar o simulador via endpoint `/shutdown`
+  - `status` — exibir o status atual do simulador ou informar que não está em execução via endpoint `/api/info`
+- Verificação se a porta padrão (8443) está disponível antes de iniciar o simulador
+- Controle básico do ciclo de vida do simulador (iniciar, parar, status)
 
 ### Resultado Esperado
 
-- CLI do assinador completo e estável
-- CLI do simulador funcional
-- Execução independente de configuração manual
-- Pipelines CI/CD configurados e operacionais
+- CLI do assinador com SunPKCS11 provider
+- CLI do Simulador HubSaúde funcional
 - Binários disponíveis para download
 
 ---
@@ -153,43 +108,22 @@ Consolidar o CLI do assinador, introduzir o CLI do simulador e estruturar a infr
 
 ### Objetivo
 
-Finalizar a integração entre todos os componentes, validar o sistema ponta a ponta e preparar a entrega com documentação completa.
-
----
+Mapear o provisionamento automático de JDK e das dependências no repositório, garantindo versões atualizadas.
 
 ### Escopo
 
-#### Integração
-
-- Integração completa entre:
-  - CLI do assinador e `assinador.jar`
-  - CLI do simulador e `simulador.jar`
-- Execução dos fluxos completos:
-  - Criação de assinatura
-  - Validação de assinatura
-- Padronização final de comportamento e mensagens
-
-#### Testes
-
-- Execução de testes abrangentes em todo o sistema
-- Validação de cenários principais e de erro
-- Testes ponta a ponta em ambiente controlado
+- Provisionamento automático de JDK para rodar o `assinador.jar`
+- Provisionamento do `hubsaude.jar` disponível no repositório da disciplina
 
 #### Documentação
 
-- Guia de instalação
-- Manual de uso dos CLIs
-- Exemplos de execução
-- Documentação técnica da integração
-- Descrição dos fluxos e arquitetura
+- Guia de instalação junto à release
+- Descrição dos fluxos e estrutura
 
 #### Entrega
 
 - Consolidação dos artefatos gerados
 - Validação final dos binários
-- Preparação para uso e distribuição
-
----
 
 ### Resultado Esperado
 
@@ -206,5 +140,7 @@ Finalizar a integração entre todos os componentes, validar o sistema ponta a p
 |--------|----------------|------------|
 | 1 | Fundação | Fluxo básico funcionando |
 | 2 | Validação e robustez | Assinador consolidado |
-| 3 | CLI, simulador e infraestrutura | CLIs e distribuíveis |
-| 4 | Integração e entrega | Sistema  |
+| 3 | CLI, simulador | CLIs e distribuíveis |
+| 4 | Provisionamento e entrega | Sistema completo |
+
+---
