@@ -1,6 +1,12 @@
 # Assinador Simulator - v0.1.0
 
-## Visão Geral
+## O que ja foi feito
+- assinador.jar com os metodos sign e request e testes unitarios
+- assinador cli com suporte para os metodos de start, cold e http ( http ainda nao incluido na release )
+- assinador cli com os metodos sign request e version
+- simulador cli do husaude com os metodos basicos `sign`, `validate`, `server`, `stop` ( ainda nao incluido na release )
+
+## Visão Geral da Release
 
 Esta primeira release disponibiliza a primeira versão funcional do **Assinador Simulator**, composta por dois componentes principais:
 
