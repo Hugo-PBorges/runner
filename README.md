@@ -1,5 +1,9 @@
 # Assinador Simulator - v0.1.0
 
+## Em andamento
+- **SunPKCS11**: o estudo do provider `SunPKCS11` foi realizado e a integração está em andamento porém ainda nebulosa, com foco em entender como interagir com tokens e smart cards via interface PKCS#11 no Java.
+- **Provisionamento de JRE**: o objetivo é entender e implementar o provisionamento automático do JRE. Esse problema não é trivial — envolve detectar a versão do Java disponível no sistema, lidar com diferenças entre plataformas (Windows, Linux, macOS)
+
 ## O que ja foi feito
 - assinador.jar com os metodos sign e request e testes unitarios
 - assinador cli com suporte para os metodos de start, cold e http ( http ainda nao incluido na release )
