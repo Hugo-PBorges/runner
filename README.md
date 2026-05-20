@@ -50,16 +50,6 @@ Para instruções completas, exemplos avançados e detalhes adicionais, consulte
 
 ---
 
-# A ser feito pós aula do dia 28/04
-- Atualizar o Readme com as tasks que foram feitas 
-- Finalizar os ajustes e disponibilizar o modo HTTP para a main
-- Pesqusar sobre o sunpkcs#11
-
-# A ser feito pós aula do dia 14/04
-- Fazer testes unitários e de integração para o assinador.jar
-- Testar o metodo de assinatura via SunPKCS11 provider
-- Servidor HTTP (padrão), para o assinador-cli realizar requisições para a API exposta pelo assinador.jar
-
 # Plano de Ação – Sistema Runner
 
 O planejamento do **Sistema Runner** foi definido e pode ser consultado com todos os detalhes em: [Plano de Ação](https://github.com/Hugo-PBorges/runner/blob/main/docs/planejamento.md).
