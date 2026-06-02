@@ -1,4 +1,4 @@
-# Assinador Simulator - v0.1.0
+# Assinador e Simulator CLI - v1.1.0
 
 ## Em andamento
 - **SunPKCS11**: o estudo do provider `SunPKCS11` foi realizado e a integração está em andamento porém ainda nebulosa, com foco em entender como interagir com tokens e smart cards via interface PKCS#11 no Java.
@@ -11,24 +11,23 @@
 - simulador cli do husaude com os metodos basicos `sign`, `validate`, `server`, `stop` ( ainda nao incluido na release )
 
 ## Visão Geral da Release
-
-Esta primeira release disponibiliza a primeira versão funcional do **Assinador Simulator**, composta por dois componentes principais:
-
-- `assinador.jar`: aplicação Java responsável pela lógica de assinatura e validação  
-- `assinador-cli`: interface de linha de comando desenvolvida em Go para execução dos métodos via terminal  
-
-Atualmente, o sistema funciona exclusivamente em **modo CLI (cold start)**, onde cada execução inicia o processo do assinador Java sob demanda.
+Esta release expande o **Assinador Simulator** com a adição do **`simulador-cli`**, uma nova interface de linha de comando em Go para gerenciar o ciclo de vida do Simulador do HubSaúde (`hubsaude-simulador.jar`).
 
 ---
 
 ## Artefatos da Release
 
-- `assinador-cli-1.0.0-linux-amd64`
-- `assinador-cli-1.0.0-macos-amd64` 
-- `assinador-cli-1.0.0-windows-amd64.exe`
-- `assinador.jar` 
+**assinador-cli**
+- `assinador-cli-1.1.0-linux-amd64`
+- `assinador-cli-1.1.0-macos-amd64`
+- `assinador-cli-1.1.0-windows-amd64.exe`
+- `assinador.jar`
 
----
+**simulador-cli** *(novo)*
+- `simulador-cli-1.1.0-linux-amd64`
+- `simulador-cli-1.1.0-macos-amd64`
+- `simulador-cli-1.1.0-windows-amd64.exe`
+- `hubsaude-simulador-0.0.0-SNAPSHOT.jar`
 
 ## Guia Rápido de Uso
 
