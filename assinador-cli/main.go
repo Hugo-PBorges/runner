@@ -3,6 +3,7 @@ package main
 import (
     "fmt"
     "assinador-cli/cmd"
+    "assinador-cli/internal/jdk"
     "os"
     "os/exec"
 )
@@ -10,11 +11,18 @@ import (
 func main() {
     if len(os.Args) == 1 {
         fmt.Println("Nenhum comando passado, iniciando o assinador em modo servidor...")
-        javaCmd := exec.Command("java", "-jar", "assinador.jar")
+
+        javaPath, err := jdk.EnsureJava()
+        if err != nil {
+            fmt.Println("Erro ao provisionar JDK:", err)
+            os.Exit(1)
+        }
+
+        javaCmd := exec.Command(javaPath, "-jar", "assinador.jar")
         javaCmd.Stdout = os.Stdout
         javaCmd.Stderr = os.Stderr
 
-        if err := javaCmd.Start(); err != nil { 
+        if err := javaCmd.Start(); err != nil {
             fmt.Println("Erro ao iniciar o JAR:", err)
             os.Exit(1)
         }
