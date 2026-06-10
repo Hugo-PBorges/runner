@@ -4,17 +4,22 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    "os/exec"
 
     "github.com/spf13/cobra"
 )
 
 var inputPath string
+var signMode string
 
 var signCmd = &cobra.Command{
     Use:   "sign",
     Short: "Cria uma assinatura digital",
     Run: func(cmd *cobra.Command, args []string) {
+        if !modoValido(signMode) {
+            fmt.Printf("Erro: --mode inválido (%q). Use: cold ou http\n", signMode)
+            return
+        }
+
         if _, err := os.Stat(inputPath); os.IsNotExist(err) {
             fmt.Println("Erro: arquivo não encontrado:", inputPath)
             return
@@ -32,27 +37,14 @@ var signCmd = &cobra.Command{
             return
         }
 
-        if servidorRodando() {
-            fmt.Println("Servidor detectado, enviando via HTTP...")
-            fazerRequisicao("http://localhost:8080/signature/sign", file)
-        } else {
-            fmt.Println("Servidor não detectado, executando cold start...")
-            javaCmd := exec.Command(
-                "java", "-jar", "assinador.jar",
-                "sign",
-                fmt.Sprintf("--input=%s", inputPath),
-            )
-            output, err := javaCmd.CombinedOutput()
-            fmt.Println(string(output))
-            if err != nil {
-                fmt.Println("Erro ao executar:", err)
-            }
-        }
+        executarOperacao(signMode, "sign", inputPath, file)
     },
 }
 
 func init() {
     rootCmd.AddCommand(signCmd)
     signCmd.Flags().StringVar(&inputPath, "input", "", "Caminho para o JSON de entrada")
+    signCmd.Flags().StringVar(&signMode, "mode", "", "Modo de execução (obrigatório): cold (cold start via java -jar) ou http (servidor)")
     signCmd.MarkFlagRequired("input")
+    signCmd.MarkFlagRequired("mode")
 }
