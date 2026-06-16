@@ -5,7 +5,7 @@
 | Engenharia de Software | Hugo Pereira Borges  | 202403075  |
 
 Implementação do sistema **Runner** conforme especificação em
-[kyriosdata/runner @ `v0.1.0`](https://github.com/kyriosdata/runner/tree/v0.1.0).
+[kyriosdata/runner](https://github.com/kyriosdata/runner).
 
 [![CI](https://github.com/HugoPBorges/runner/actions/workflows/ci.yml/badge.svg)](https://github.com/HugoPBorges/runner/actions/workflows/ci.yml)
 
