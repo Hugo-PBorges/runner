@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.*;
-import java.security.cert.CertificateException;
 import java.util.Base64;
 
 @Service
@@ -36,14 +35,17 @@ public class Pkcs11SignatureService implements SignatureService {
 
         Provider provider;
         try {
-            String config = String.format(
-                    "--name SunPKCS11%nlibrary %s%nslot %d",
-                    pkcs11Properties.getLibraryPath(),
-                    crypto.getSlotId()
-            );
+            String libraryPath = pkcs11Properties.getLibraryPath().replace("\\", "/");
+            String config = "--name=SoftHSM\nlibrary = " + libraryPath + "\nslotListIndex = 0";
 
-            provider = Security.getProvider("SunPKCS11").configure(config);
-            Security.addProvider(provider);
+            Provider base = Security.getProvider("SunPKCS11");
+            provider = base.configure(config);
+            String providerName = provider.getName();
+            if (Security.getProvider(providerName) == null) {
+                Security.addProvider(provider);
+            } else {
+                provider = Security.getProvider(providerName);
+            }
         } catch (InvalidParameterException | ProviderException e) {
             throw new CryptographicException("Erro ao acessar dispositivo criptográfico: " + e.getMessage(), e);
         }
@@ -52,11 +54,13 @@ public class Pkcs11SignatureService implements SignatureService {
             KeyStore ks = KeyStore.getInstance("PKCS11", provider);
             ks.load(null, crypto.getPin().toCharArray());
 
-            PrivateKey privateKey = (PrivateKey) ks.getKey(crypto.getIdentifier(), null);
+            PrivateKey privateKey = (PrivateKey) ks.getKey(crypto.getIdentifier(), crypto.getPin().toCharArray());
 
             if (privateKey == null) {
+                java.util.List<String> aliases = java.util.Collections.list(ks.aliases());
                 throw new CryptographicException(
-                        "Chave privada não encontrada para o identifier: " + crypto.getIdentifier()
+                        "Chave privada não encontrada: '" + crypto.getIdentifier()
+                        + "'. Aliases disponíveis: " + aliases
                 );
             }
 
@@ -79,7 +83,7 @@ public class Pkcs11SignatureService implements SignatureService {
             return OperationOutcomeBuilder.information("SIGNATURE_CREATED", jws);
 
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException
-                 | CertificateException | java.io.IOException
+                 | java.security.cert.CertificateException | java.io.IOException
                  | InvalidKeyException | SignatureException e) {
             throw new CryptographicException("Erro ao acessar dispositivo criptográfico: " + e.getMessage(), e);
         }
