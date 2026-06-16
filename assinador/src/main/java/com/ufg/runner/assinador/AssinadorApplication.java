@@ -3,20 +3,24 @@ package com.ufg.runner.assinador;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
+@EnableScheduling
 public class AssinadorApplication {
 
-	public static void main(String[] args) {
+    private static final java.util.Set<String> CLI_COMMANDS = java.util.Set.of("sign", "validate");
 
-		SpringApplication app = new SpringApplication(AssinadorApplication.class);
+    public static void main(String[] args) {
 
-		if (args.length > 0) {
-			app.setWebApplicationType(WebApplicationType.NONE);
-		} else {
-			app.setWebApplicationType(WebApplicationType.SERVLET);
-		}
+        SpringApplication app = new SpringApplication(AssinadorApplication.class);
 
-		app.run(args);
-	}
+        boolean isCliCommand = args.length > 0 && CLI_COMMANDS.contains(args[0]);
+
+        app.setWebApplicationType(isCliCommand ? WebApplicationType.NONE : WebApplicationType.SERVLET);
+
+        app.run(args);
+    }
 }
