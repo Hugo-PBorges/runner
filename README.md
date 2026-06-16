@@ -7,8 +7,6 @@
 Implementação do sistema **Runner** conforme especificação em
 [kyriosdata/runner](https://github.com/kyriosdata/runner).
 
-[![CI](https://github.com/HugoPBorges/runner/actions/workflows/ci.yml/badge.svg)](https://github.com/HugoPBorges/runner/actions/workflows/ci.yml)
-
 ---
 
 ## O que é
