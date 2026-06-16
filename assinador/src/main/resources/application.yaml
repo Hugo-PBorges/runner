@@ -1,3 +1,22 @@
 spring:
   application:
     name: assinador
+
+server:
+  port: 8080
+
+pkcs11:
+  library-path: /usr/lib/softhsm/libsofthsm2.so
+
+# idle-timeout: tempo em MINUTOS sem requisições antes do shutdown automático.
+# 0 = desabilitado (padrão). Exemplo: idle-timeout=30 encerra após 30 min idle.
+# idle-timeout: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, shutdown
+  endpoint:
+    shutdown:
+      access: unrestricted
