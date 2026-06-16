@@ -7,9 +7,9 @@
   },
   "crypto": {
     "pin": "1234",
-    "identifier": "key1",
-    "slotId": 1,
-    "tokenLabel": "SafeNet"
+    "identifier": "runner-key",
+    "slotId": 1924384956,
+    "tokenLabel": "runner-token"
   },
   "certificates": ["cert1"],
   "timestamp": 1751328001,

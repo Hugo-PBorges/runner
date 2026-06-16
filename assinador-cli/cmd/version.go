@@ -2,20 +2,39 @@ package cmd
 
 import (
 	"fmt"
+	"runtime/debug"
 
 	"github.com/spf13/cobra"
 )
 
-var Version = "1.1.0"
+// Version é sobrescrito em build time via -ldflags "-X assinador-cli/cmd.Version=x.y.z".
+var Version = "dev"
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Exibe a versão da aplicação",
+	Short: "Exibe a versão e o commit do build",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("assinatura CLI versão:", Version)
+		fmt.Printf("assinador-cli %s (%s)\n", Version, buildCommit())
 	},
+}
+
+func buildCommit() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "unknown"
+	}
+	for _, s := range info.Settings {
+		if s.Key == "vcs.revision" {
+			if len(s.Value) > 7 {
+				return s.Value[:7]
+			}
+			return s.Value
+		}
+	}
+	return "unknown"
 }
 
 func init() {
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.Version = Version
 }

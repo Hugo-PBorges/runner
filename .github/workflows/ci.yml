@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  java:
+    name: Java — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
+          cache: maven
+
+      - name: Build e testes (assinador)
+        working-directory: assinador
+        run: mvn -B verify
+
+  go-assinador-cli:
+    name: Go assinador-cli — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: assinador-cli/go.sum
+
+      - name: go vet
+        working-directory: assinador-cli
+        run: go vet ./...
+
+      - name: Build
+        working-directory: assinador-cli
+        run: go build -v ./...
+
+  go-simulador-cli:
+    name: Go simulador-cli — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: simulador-cli/go.sum
+
+      - name: go vet
+        working-directory: simulador-cli
+        run: go vet ./...
+
+      - name: Build
+        working-directory: simulador-cli
+        run: go build -v ./...
