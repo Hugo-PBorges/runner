@@ -6,7 +6,7 @@ server:
   port: 8080
 
 pkcs11:
-  library-path: /usr/lib/softhsm/libsofthsm2.so
+  library-path: C:\SoftHSM2\lib\softhsm2-x64.dll
 
 # idle-timeout: tempo em MINUTOS sem requisições antes do shutdown automático.
 # 0 = desabilitado (padrão). Exemplo: idle-timeout=30 encerra após 30 min idle.
