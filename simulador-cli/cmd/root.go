@@ -1,34 +1,27 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
-const uso = `simulador-cli — Gerenciador do HubSaúde Simulador
+var rootCmd = &cobra.Command{
+	Use:   "simulador-cli",
+	Short: "CLI para gerenciar o Simulador do HubSaúde",
+	Long: `Ferramenta CLI para iniciar, parar e consultar o status do Simulador do HubSaúde.
 
-Comandos:
-  start    Inicia o simulador
-  stop     Para o simulador
-  status   Exibe o status do simulador
-`
+O simulador.jar é baixado automaticamente do GitHub Releases na primeira execução
+e armazenado em ~/.hubsaude/simulador/jars/. Execuções subsequentes usam o cache.
+
+Exemplos:
+  simulador-cli start            # baixa e inicia o simulador
+  simulador-cli status           # exibe status, PID e versão
+  simulador-cli stop             # encerra com graceful shutdown`,
+}
 
 func Execute() {
-	if len(os.Args) < 2 {
-		fmt.Print(uso)
-		os.Exit(1)
-	}
-
-	switch os.Args[1] {
-	case "start":
-		cmdStart()
-	case "stop":
-		cmdStop()
-	case "status":
-		cmdStatus()
-	default:
-		fmt.Fprintf(os.Stderr, "Comando desconhecido: %q\n\n", os.Args[1])
-		fmt.Print(uso)
+	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }

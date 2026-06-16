@@ -7,18 +7,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Version é sobrescrito em build time via -ldflags "-X assinador-cli/cmd.Version=x.y.z".
+// Version é sobrescrito em build time via -ldflags "-X main.Version=x.y.z".
 var Version = "dev"
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Exibe a versão e o commit do build",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("assinador-cli %s (%s)\n", Version, buildCommit())
+		fmt.Printf("simulador-cli %s (%s)\n", Version, simBuildCommit())
 	},
 }
 
-func buildCommit() string {
+func simBuildCommit() string {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		return "unknown"
